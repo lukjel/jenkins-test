@@ -3,12 +3,21 @@
 
 Uruchomienie jenkins'a:
 
-`docker run -it --rm -p 8080:8080 -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --name jenkins jenkins/jenkins:jdk11`
-
-`docker network create jenkins`
+volume z certyfikatami
 `docker volume create jenkins-docker-certs`
+
+volume z danymi:
  `docker volume create jenkins-data`
 
+uruchomienie dockera z java 11:
+`docker run -it --rm -p 8080:8080 -v jenkins-data:/var/jenkins_home -v jenkins-docker-certs:/certs/client -v /var/run/docker.sock:/var/run/docker.sock --name jenkins jenkins/jenkins:jdk11`
+
+zbudowanie własnego jenkinsa:
+`docker build -t jenkins-maven .`
+
+alternatywnie z piepeline
+
+`docker network create jenkins`
 
 ```
 docker container run --name jenkins-docker --rm --detach \
