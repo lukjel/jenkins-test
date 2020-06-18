@@ -43,3 +43,24 @@ docker container run --name jenkins-blueocean --rm --detach \
 
 `docker exec jenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword`
 
+Skrypt do uruchomienia build w wersji pipeline:
+
+```
+pipeline {
+   agent {
+       docker {
+           image 'maven:3-adoptopenjdk-11'
+           args '-v $HOME/.m2:/root/.m2'
+       }
+   }
+   stages {
+      stage('Build') {
+         steps {
+            // Get some code from a GitHub repository
+            git 'https://github.com/lukjel/jenkins-test.git'
+            sh "mvn clean package"
+         }
+      }
+   }
+}
+``` 
