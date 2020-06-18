@@ -15,6 +15,9 @@ uruchomienie dockera z java 11:
 zbudowanie własnego jenkinsa:
 `docker build -t jenkins-maven .`
 
+uruchomienie naszego jenkinsa z maven:
+`docker run -it --rm -p 8080:8080 -v jenkins-data:/var/jenkins_home -v jenkins-docker-certs:/certs/client -v /var/run/docker.sock:/var/run/docker.sock --name jenkins jenkins-maven`
+
 alternatywnie z piepeline
 
 `docker network create jenkins`
